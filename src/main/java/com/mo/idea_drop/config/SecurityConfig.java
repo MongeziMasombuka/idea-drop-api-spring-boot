@@ -57,19 +57,5 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter(jwtUtils);
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        CustomUserDetailsService customUserDetailsService = new CustomUserDetailsService(userRepository);
-        String username = "Test User";
-        String email = "user@test.com";
-        userRepository.findByUsername(username).orElseGet(() -> {
-            User newUser = User.builder()
-                    .username(username)
-                    .email(email)
-                    .password(passwordEncoder().encode("password"))
-                    .build();
-            return userRepository.save(newUser);
-        });
-        return customUserDetailsService;
-    }
+    
 }
